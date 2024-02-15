@@ -1,0 +1,24 @@
+{
+  "name": "engine-j",
+  "version": "0.0.0",
+  "description": "Game Engine developed by Jake Eisenberg",
+  "main": "build/engine.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-wasm": "emmake make all",
+    "clean-wasm": "emmake make clean",
+    "rebuild-wasm": "npm run clean-wasm && npm run build-wasm",
+    "start-wasm": "node build/engine.js"
+  },
+  "keywords": [
+    "game",
+    "engine",
+    "engine-j",
+    "cpp",
+    "c++",
+    "wasm",
+    "webassembly"
+  ],
+  "author": "Jake Eisenberg",
+  "license": "ISC"
+}
