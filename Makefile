@@ -3,7 +3,7 @@ CFLAGS := -Wall -Wextra -std=c++20 -fwasm-exceptions
 EMFLAGS := -sALLOW_MEMORY_GROWTH=1 -sFULL_ES2=1 -sWASM=1 -sNO_EXIT_RUNTIME=1 --embed-file assets
 TARGET := ./build/engine.js
 
-LIBS := ./libs/JsonParser.a
+LIBS := ./libs/JsonParser/libJsonParser.a
 HEADERS := -I./include/headers -I./include/headers/renderer -I./include/headers/core -I./include/headers/core/objects -I./include/headers/core/entities -I./include/headers/core/entities/character -I./include/headers/core/components -I./include/headers/core/components/mesh -I./include/headers/math -I./include/headers/math/test -I./include/JsonParser 
 CFLAGS_INCLUDE := $(CFLAGS) $(HEADERS)
 
@@ -58,5 +58,5 @@ clean:
 	@mkdir -p ./build
 	$(CC) $(CFLAGS_INCLUDE) -c ./src/engine.cpp -o ./build/engine.o
 
-$(TARGET): ./build/renderer/Renderer.o ./build/core/objects/GameObject.o ./build/core/entities/character/CharacterEntity.o ./build/core/entities/GameEntity.o ./build/core/components/GameComponent.o ./build/core/components/mesh/MeshElement.o ./build/core/components/mesh/MeshComponent.o ./build/math/Matrix.o ./build/math/test/test.o ./build/math/Vector.o ./build/engine.o 
+$(TARGET): ./build/renderer/Renderer.o ./build/core/objects/GameObject.o ./build/core/entities/character/CharacterEntity.o ./build/core/entities/GameEntity.o ./build/core/components/GameComponent.o ./build/core/components/mesh/MeshElement.o ./build/core/components/mesh/MeshComponent.o ./build/math/Matrix.o ./build/math/test/test.o ./build/math/Vector.o ./build/engine.o  $(LIBS)
 	$(CC) $(CFLAGS_INCLUDE) $(EMFLAGS) $^ -o $@

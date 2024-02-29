@@ -72,5 +72,5 @@ for srcFile in ${srcFiles}; do
     # echo
 done
 
-printf "\$(TARGET): $objs\n" >> "$MAKEFILE"
+printf "\$(TARGET): $objs \$(LIBS)\n" >> "$MAKEFILE"
 printf "\t\$(CC) \$(CFLAGS_INCLUDE) \$(EMFLAGS) $^ -o \$@\n" >> "$MAKEFILE"

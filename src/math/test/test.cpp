@@ -271,13 +271,12 @@ std::vector<Test> tests{
 
             Vec4 vec{ 1.0, 2.0, 3.0, 4.0 };
 
-            MatMN mult = mat * vec;
-            VecN result = VecN(mult);
+            Vec2 result = Vec2(mat * vec);
 
             bool dims = result.NumRows() == 2 && result.NumCols() == 1;
-            bool nums = floatComp(result[0], 30.0) && floatComp(result[1], 60.0);
+            bool nums = floatComp(result[0], 30.0) && floatComp(result[1], 98.0);
 
-            cout << result[0] << " " << result[1] << endl;
+            result.Log("Result");
 
             return dims && nums;
         }

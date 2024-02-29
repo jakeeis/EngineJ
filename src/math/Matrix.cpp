@@ -12,7 +12,7 @@ MatMN::~MatMN() {
 }
 
 MatMN::MatMN(const MatMN& mat) : MatMN{ mat.NumRows(), mat.NumCols() } {
-    Fill(mat.data);
+    Fill(mat.data, 0, mat.NumCols() * mat.NumRows());
 }
 
 void MatMN::Fill(float* newData, int offset, int size) {
@@ -46,13 +46,19 @@ MatMN MatMN::operator*(MatMN& b) const {
 
     MatMN result{ numRows, b.NumCols() };
 
-    for (int i = 0; i < numCols; i++) {
-        for (int j = 0; j < b.NumRows(); j++) {
+    // printf("a.rows: %d; a.cols: %d\n", numRows, numCols);
+    // printf("b.rows: %d; b.cols: %d\n", b.numRows, b.numCols);
+
+    for (int i = 0; i < numRows; i++) {
+        for (int j = 0; j < b.NumCols(); j++) {
             float sum = 0;
 
             for (int k = 0; k < numCols; k++) {
+                
                 sum += Get(i, k) * b[k][j];
             }
+
+            // printf("m: %d; n: %d, sum: %f\n", i, j, sum);
 
             result[i][j] = sum;
         }

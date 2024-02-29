@@ -7,6 +7,11 @@
 
 namespace json
 {
+    class JsonElement;
+    
+    typedef vector<JsonElement*> Array;
+    typedef unordered_map<string, JsonElement*> Object;
+
     enum JsonType
     {
         JSON_OBJECT,
@@ -25,9 +30,12 @@ namespace json
 
         virtual double& GetAsNumber();
         virtual bool& GetAsBool();
-        virtual string GetAsString();
-        virtual unordered_map<string, JsonElement*>& GetAsObject();
-        virtual vector<JsonElement*>& GetAsArray();
+        virtual string& GetAsString();
+        virtual Object& GetAsObject();
+        virtual Array& GetAsArray();
+
+        template<typename T>
+        T& Get();
     };
 
     class JsonNumber : public JsonElement
@@ -36,10 +44,11 @@ namespace json
         JsonNumber(double value);
 
         virtual double& GetAsNumber() override;
-        virtual string GetAsString() override;
+        virtual string& GetAsString() override;
 
     private:
         double _value;
+        string _str;
     };
 
     class JsonBool : public JsonElement
@@ -48,7 +57,7 @@ namespace json
         JsonBool(bool value);
 
         virtual bool& GetAsBool() override;
-        virtual string GetAsString() override;
+        virtual string& GetAsString() override;
 
     private:
         bool _value;
@@ -59,7 +68,7 @@ namespace json
     public:
         JsonString(string value);
 
-        virtual string GetAsString() override;
+        virtual string& GetAsString() override;
 
     private:
         string _value;
@@ -72,10 +81,10 @@ namespace json
 
         void Add(string key, JsonElement* value);
 
-        virtual unordered_map<string, JsonElement*>& GetAsObject() override;
-        virtual string GetAsString() override;
+        virtual Object& GetAsObject() override;
+        virtual string& GetAsString() override;
     private:
-        unordered_map<string, JsonElement*> _value;
+        Object _value;
     };
 
     class JsonArray : public JsonElement
@@ -85,11 +94,11 @@ namespace json
 
         void Add(JsonElement* value);
 
-        virtual vector<JsonElement*>& GetAsArray() override;
-        virtual string GetAsString() override;
+        virtual Array& GetAsArray() override;
+        virtual string& GetAsString() override;
 
     private:
-        vector<JsonElement*> _value{};
+        Array _value{};
     };
 
     JsonElement* parse(string path);

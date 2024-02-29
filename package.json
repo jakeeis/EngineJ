@@ -5,7 +5,9 @@
   "main": "build/engine.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build-wasm": "bash ./buildMakefile.sh && emmake make all",
+    "gen-makefile": "bash ./buildMakefile.sh",
+    "build-wasm-only": "emmake make all",
+    "build-wasm": "npm run gen-makefile && npm run build-wasm-only",
     "clean-wasm": "emmake make clean",
     "rebuild-wasm": "npm run clean-wasm && npm run build-wasm",
     "start-wasm": "node build/engine.js"
